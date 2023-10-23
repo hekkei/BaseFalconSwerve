@@ -5,8 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Wrist;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +24,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private static Wrist m_wrist = new Wrist();
+
+  private static XboxController m_cont = new XboxController(0);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -31,6 +38,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_wrist.init();
   }
 
   /**
@@ -84,7 +93,20 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+    if (m_cont.getLeftBumper()) {
+      m_wrist.goDownCones();
+    } else if (m_cont.getRightBumper()) {
+        m_wrist.goDownCubes();
+    } else if (m_cont.getBButton()) {
+      m_wrist.spit();
+    } else if (m_cont.getAButton()) {
+      m_wrist.goUp();
+    } else if(m_cont.getBButtonReleased()) {
+      m_wrist.resetSpin();
+    }
+  }
 
   @Override
   public void testInit() {
