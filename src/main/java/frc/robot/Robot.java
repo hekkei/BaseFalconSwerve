@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
   private static Wrist m_wrist = new Wrist();
 
   private static XboxController m_cont = new XboxController(0);
+  private static XboxController m_cont2 = new XboxController(1);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -94,18 +95,30 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
-    if (m_cont.getLeftBumper()) {
+    if (m_cont2.getLeftBumper()) {
       m_wrist.goDownCones();
-    } else if (m_cont.getRightBumper()) {
-        m_wrist.goDownCubes();
-    } else if (m_cont.getBButton()) {
-      m_wrist.spit();
-    } else if (m_cont.getAButton()) {
-      m_wrist.goUp();
-    } else if(m_cont.getBButtonReleased()) {
+    } else if (m_cont2.getLeftBumperReleased()) {
       m_wrist.resetSpin();
+      m_wrist.brake();
+    } else if (m_cont2.getRightBumper()) {
+        m_wrist.goDownCubes();
+    }else if (m_cont2.getRightBumperReleased()) {
+      m_wrist.resetSpin();
+      m_wrist.brake();
+    } else if (m_cont2.getBButton()) {
+      m_wrist.spit();
+    } else if (m_cont2.getAButton()) {
+      m_wrist.goUp();
+    } else if (m_cont2.getXButton()) {
+      m_wrist.spitCubes();
+    } else if(m_cont2.getBButtonReleased()) {
+      m_wrist.resetSpin();
+    } else if(m_cont2.getXButtonReleased()) {
+      m_wrist.resetSpin();
+    }else{
+      m_wrist.brake();
     }
+    
   }
 
   @Override

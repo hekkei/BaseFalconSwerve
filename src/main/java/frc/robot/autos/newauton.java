@@ -27,7 +27,7 @@ public class newauton extends SequentialCommandGroup {
     Trajectory exampleTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
-            List.of(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(1.7, 0, new Rotation2d(0))),
+            List.of(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(2.0, 0, new Rotation2d(0))),
             // new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             // List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
